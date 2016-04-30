@@ -18,5 +18,9 @@
         <processorPath useClasspath="true" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="com.bruenni.infrastructure.common_main" target="1.5" />
+      <module name="com.bruenni.infrastructure.common_test" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
