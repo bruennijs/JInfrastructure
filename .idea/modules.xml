@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.bruenni.infrastructure.iml" filepath="$PROJECT_DIR$/.idea/modules/com.bruenni.infrastructure.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.bruenni.infrastructure.common.iml" filepath="$PROJECT_DIR$/.idea/modules/com.bruenni.infrastructure.common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.bruenni.infrastructure.common_main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.bruenni.infrastructure.common_main.iml" group="com.bruenni.infrastructure.common" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.bruenni.infrastructure.common_test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.bruenni.infrastructure.common_test.iml" group="com.bruenni.infrastructure.common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JInfrastructure.iml" filepath="$PROJECT_DIR$/.idea/modules/JInfrastructure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common.iml" filepath="$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common_main.iml" filepath="$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common_main.iml" group="de.bruenni.infrastructure.common" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common_test.iml" filepath="$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common_test.iml" group="de.bruenni.infrastructure.common" />
     </modules>
   </component>
 </project>

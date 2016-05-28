@@ -1,2 +1,3 @@
-rootProject.name = 'com.bruenni.infrastructure'
+//rootProject.name = 'com.bruenni.infrastructure'
+include 'de.bruenni.infrastructure.common'
 

@@ -1,6 +1,6 @@
-package com.bruenni.infrastructure.common.event.implementation;
+package de.bruenni.infrastructure.common.event.implementation;
 
-import com.bruenni.infrastructure.common.event.IEvent;
+import de.bruenni.infrastructure.common.event.IEvent;
 
 /**
  * Created by bruenni on 30.04.16.

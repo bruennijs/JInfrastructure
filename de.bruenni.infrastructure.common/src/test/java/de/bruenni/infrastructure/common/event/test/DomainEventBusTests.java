@@ -1,7 +1,7 @@
-package com.bruenni.infrastructure.common.event.test;
+package de.bruenni.infrastructure.common.event.test;
 
-import com.bruenni.infrastructure.common.event.implementation.DomainEventBusImpl;
-import com.bruenni.infrastructure.common.event.implementation.Event;
+import de.bruenni.infrastructure.common.event.implementation.DomainEventBusImpl;
+import de.bruenni.infrastructure.common.event.implementation.Event;
 import org.junit.Assert;
 import org.junit.Test;
 import rx.Observable;

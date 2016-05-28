@@ -1,4 +1,4 @@
-package com.bruenni.infrastructure.common.event;
+package de.bruenni.infrastructure.common.event;
 
 /**
  * Created by bruenni on 30.04.16.
