@@ -1,7 +1,7 @@
-package de.bruenni.infrastructure.common.event.test;
+package infrastructure.common.event.test;
 
-import de.bruenni.infrastructure.common.event.implementation.DomainEventBusImpl;
-import de.bruenni.infrastructure.common.event.implementation.Event;
+import infrastructure.common.event.implementation.DomainEventBusImpl;
+import infrastructure.common.event.implementation.Event;
 import org.junit.Assert;
 import org.junit.Test;
 import rx.Observable;
@@ -23,11 +23,5 @@ public class DomainEventBusTests {
 
         Event evented = onEvent.toBlocking().single();
         Assert.assertEquals(event.getId(), evented.getId());
-    }
-
-    @Test
-    public void When_test_failure()
-    {
-        //Assert.fail("shall fail remove this line to test gradle");
     }
 }
