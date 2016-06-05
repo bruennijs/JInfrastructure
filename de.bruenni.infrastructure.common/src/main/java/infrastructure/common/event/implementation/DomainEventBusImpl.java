@@ -12,15 +12,15 @@ import java.util.List;
 /**
  * Created by bruenni on 30.04.16.
  */
-public class DomainEventBusImpl<TEvent> implements IDomainEventBus<TEvent> {
-    private List<Observer<TEvent>> observers = new LinkedList<Observer<TEvent>>();
+public class DomainEventBusImpl<IEvent> implements IDomainEventBus<IEvent> {
+    private List<Observer<IEvent>> observers = new LinkedList<Observer<IEvent>>();
 
     /**
      * Subcribes and adds to internal list.
      * @return
      */
-    public Observable<TEvent> subscribe() {
-        Subject<TEvent, TEvent> subject = ReplaySubject.create();
+    public Observable<IEvent> subscribe() {
+        Subject<IEvent, IEvent> subject = ReplaySubject.create();
         this.observers.add(subject);
         return subject;
     }
@@ -29,8 +29,8 @@ public class DomainEventBusImpl<TEvent> implements IDomainEventBus<TEvent> {
      * Publishes to all observers.
      * @param tEvent
      */
-    public void publish(TEvent tEvent) {
-        for (Observer<TEvent> o :
+    public void publish(IEvent tEvent) {
+        for (Observer<IEvent> o :
                 this.observers) {
             o.onNext(tEvent);
         }
