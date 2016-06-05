@@ -1,5 +1,5 @@
 group 'de.bruenni'  ////maven groupid
-version '1.0-0' //// file name extension
+version '1.0.0' //// file name extension
 apply plugin: 'java'
 apply plugin: 'maven'
 
@@ -9,7 +9,7 @@ targetCompatibility = 1.8
 
 jar {
     baseName = 'infrastructure.common'  //// maven artifactid
-    version =  '1.0.0'  //// jar manifest
+    version =  version  //// jar manifest
     manifest {
         attributes 'infrastructure-common': 'Infrastrcuture software common stuff like domain event bus persistence stuff',
                 'Implementation-Version': version
