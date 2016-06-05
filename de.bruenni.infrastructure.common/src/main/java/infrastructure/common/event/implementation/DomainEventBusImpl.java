@@ -1,7 +1,6 @@
-package de.bruenni.infrastructure.common.event.implementation;
+package infrastructure.common.event.implementation;
 
-import de.bruenni.infrastructure.common.event.IDomainEventBus;
-import de.bruenni.infrastructure.common.event.IEvent;
+import infrastructure.common.event.IDomainEventBus;
 import rx.Observable;
 import rx.Observer;
 import rx.subjects.ReplaySubject;
