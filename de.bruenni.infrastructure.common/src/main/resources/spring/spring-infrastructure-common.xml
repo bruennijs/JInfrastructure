@@ -7,7 +7,7 @@
     <!-- services -->
 
     <bean id="DomainEventBus" class="infrastructure.common.event.implementation.DomainEventBusImpl" />
-    <bean id="Event" class="infrastructure.common.event.implementation.Event" />
+    <!--<bean id="Event" class="infrastructure.common.event.implementation.Event" />-->
 
     <!-- more bean definitions for services go here -->
 
