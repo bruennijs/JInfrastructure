@@ -1,22 +1,32 @@
 package infrastructure.common.event.implementation;
 
 import infrastructure.common.event.IEvent;
+import infrastructure.persistence.Entity;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by bruenni on 30.04.16.
  */
-public abstract class Event implements IEvent {
-    private String id;
+public abstract class Event extends Entity<UUID> implements IEvent {
+    private UUID id;
     private Date timestamp = new Date();
+
+    /**
+     * Constructor with default values.
+     */
+    public Event() {
+        super(UUID.randomUUID());
+        this.timestamp = new Date();
+    }
 
     /**
      * Constructor.
      * @param id
      */
-    public Event(String id, Date timestamp) {
-        this.id = id;
+    public Event(UUID id, Date timestamp) {
+        super(id);
         this.timestamp = timestamp;
     }
 
@@ -24,7 +34,7 @@ public abstract class Event implements IEvent {
      * Gets the id.
      * @return
      */
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
