@@ -9,33 +9,32 @@ import java.util.UUID;
 /**
  * Created by bruenni on 30.04.16.
  */
-public abstract class Event extends Entity<UUID> implements IEvent {
-    private UUID id;
+public abstract class Event extends Entity<UUID> implements IEvent<UUID, UUID> {
+    private UUID aggregateId;
     private Date timestamp = new Date();
 
     /**
      * Constructor with default values.
      */
-    public Event() {
+    public Event(UUID aggregateId) {
         super(UUID.randomUUID());
         this.timestamp = new Date();
+        this.aggregateId = aggregateId;
     }
 
     /**
      * Constructor.
      * @param id
      */
-    public Event(UUID id, Date timestamp) {
+    public Event(UUID id, UUID aggregateId, Date timestamp) {
         super(id);
+        this.aggregateId = aggregateId;
         this.timestamp = timestamp;
     }
 
-    /**
-     * Gets the id.
-     * @return
-     */
-    public UUID getId() {
-        return id;
+    @Override
+    public UUID getAggregateId() {
+        return aggregateId;
     }
 
     @Override
@@ -46,7 +45,7 @@ public abstract class Event extends Entity<UUID> implements IEvent {
     @Override
     public String toString() {
         return "Event{" +
-                "id='" + id + '\'' +
+                "id='" + getId() + '\'' +
                 ", timestamp=" + timestamp +
                 '}';
     }
