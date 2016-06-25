@@ -7,8 +7,9 @@ import java.lang.reflect.Type;
  */
 public interface IEventHandler<T extends IEvent> {
     /**
-     * handles event.
+     * Handles domain events.
      * @param event
+     * @return handler can create new events itself. If no new event is created by the handler null is returned
      */
     void OnEvent(T event);
 

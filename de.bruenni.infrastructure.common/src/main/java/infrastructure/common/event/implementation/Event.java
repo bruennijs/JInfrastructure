@@ -15,6 +15,7 @@ public abstract class Event extends Entity<UUID> implements IEvent<UUID, UUID> {
 
     /**
      * Constructor with default values.
+     * @param aggregateId Id of the aggregate this event was created by.
      */
     public Event(UUID aggregateId) {
         super(UUID.randomUUID());

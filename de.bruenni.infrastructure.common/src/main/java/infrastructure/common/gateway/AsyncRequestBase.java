@@ -15,4 +15,11 @@ public abstract class AsyncRequestBase<TId> {
     public TId getCorrelationId() {
         return correlationId;
     }
+
+    @Override
+    public String toString() {
+        return "AsyncRequestBase{" +
+                "correlationId=" + correlationId +
+                '}';
+    }
 }
