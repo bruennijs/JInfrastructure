@@ -1,9 +1,11 @@
 package infrastructure.persistence;
 
+import java.io.Serializable;
+
 /**
  * Created by bruenni on 08.06.16.
  */
-public abstract class Entity<T> implements IEntity<T> {
+public abstract class Entity<T extends Serializable> implements IEntity<T> {
     private T id;
 
     /**
@@ -17,5 +19,12 @@ public abstract class Entity<T> implements IEntity<T> {
     @Override
     public T getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "id=" + id +
+                '}';
     }
 }
