@@ -1,18 +1,27 @@
 package infrastructure.common.gateway;
 
-import java.util.UUID;
+import java.io.Serializable;
 
 /**
  * Created by bruenni on 18.06.16.
  */
-public abstract class AsyncRequestBase<TId> {
-    public TId correlationId;
+public abstract class AsyncRequestBase<TCorrelationId extends Serializable> {
+    private TCorrelationId correlationId;
 
-    public AsyncRequestBase(TId correlationId) {
+    /**
+     * Constructor
+     * @param correlationId
+     */
+    public AsyncRequestBase(TCorrelationId correlationId)
+    {
         this.correlationId = correlationId;
     }
 
-    public TId getCorrelationId() {
+    /**
+     * Gets the correlation id.
+     * @return
+     */
+    public TCorrelationId getCorrelationId() {
         return correlationId;
     }
 

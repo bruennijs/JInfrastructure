@@ -46,8 +46,8 @@ public abstract class Event extends Entity<UUID> implements IEvent<UUID, UUID> {
     @Override
     public String toString() {
         return "Event{" +
-                "id='" + getId() + '\'' +
+                "aggregateId=" + aggregateId +
                 ", timestamp=" + timestamp +
-                '}';
+                "} " + super.toString();
     }
 }
