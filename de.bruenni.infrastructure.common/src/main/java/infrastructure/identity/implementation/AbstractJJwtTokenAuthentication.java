@@ -20,13 +20,11 @@ public abstract class AbstractJJwtTokenAuthentication implements ITokenAuthentic
     public infrastructure.identity.Jwt verify(Token token) throws AuthenticationFailedException {
         try
         {
-            Jws<Claims> claimsJws = this.getParser().parseClaimsJws(token.getValue());
+            Claims claims = this.getBody(token);
 
-            Claims body = claimsJws.getBody();
+            Map<String, Object> claimsMap = infrastructure.util.StreamUtils.toMap(claims.entrySet().stream());
 
-            Map<String, Object> claimsMap = infrastructure.util.StreamUtils.toMap(claimsJws.getBody().entrySet().stream());
-
-            return new infrastructure.identity.Jwt(body.getSubject(), body.getIssuedAt(), body.getExpiration(), claimsMap);
+            return new infrastructure.identity.Jwt(claims.getSubject(), claims.getIssuedAt(), claims.getExpiration(), claimsMap);
         }
         catch (SignatureException sigException)
         {
@@ -37,6 +35,8 @@ public abstract class AbstractJJwtTokenAuthentication implements ITokenAuthentic
             throw new AuthenticationFailedException("expiration date is less than now", expiredException);
         }
     }
+
+    protected abstract Claims getBody(Token token);
 
     protected abstract JwtParser getParser();
 
