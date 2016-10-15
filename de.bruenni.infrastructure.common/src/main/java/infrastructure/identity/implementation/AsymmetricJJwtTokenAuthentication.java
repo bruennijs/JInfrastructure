@@ -9,6 +9,8 @@ import org.springframework.util.StreamUtils;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collector;
@@ -44,20 +46,37 @@ public class AsymmetricJJwtTokenAuthentication implements ITokenAuthentication {
     }
 
     @Override
-    public Map<String, Object> verify(Token token) throws AuthenticationFailedException {
+    public infrastructure.identity.Jwt verify(Token token) throws AuthenticationFailedException {
         try
         {
-            return infrastructure.util.StreamUtils.toMap(Jwts.parser().setSigningKey(this.publicKey).parseClaimsJws(token.getValue()).getBody().entrySet().stream());
+            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(this.publicKey).parseClaimsJws(token.getValue());
+
+            Claims body = claimsJws.getBody();
+
+            Map<String, Object> claimsMap = infrastructure.util.StreamUtils.toMap(claimsJws.getBody().entrySet().stream());
+
+            return new infrastructure.identity.Jwt(body.getSubject(), body.getIssuedAt(), body.getExpiration(), claimsMap);
         }
         catch (SignatureException sigException)
         {
-            throw new AuthenticationFailedException("Authentication failed [" + token.getValue() + ", " + sigException.getMessage() + "]", sigException);
+            throw new AuthenticationFailedException("Signature invalid [" + token.getValue() + ", " + sigException.getMessage() + "]", sigException);
+        }
+        catch (ExpiredJwtException expiredException)
+        {
+            throw new AuthenticationFailedException("expiration date is less than now", expiredException);
         }
     }
 
     @Override
-    public Token create(String  subject, Map<String, Object> claims) {
-        String jwtString = Jwts.builder().setSubject(subject).signWith(this.algorithm, this.keyPair.getPrivate()).setSubject(subject).setClaims(claims).compact();
+    public Token create(infrastructure.identity.Jwt jwt) {
+        String jwtString = Jwts.builder()
+                .signWith(this.algorithm, this.keyPair.getPrivate())
+                .setClaims(jwt.getClaims())
+                .setSubject(jwt.getSubject())
+                .setIssuedAt(jwt.getIat())
+                .setExpiration(jwt.getExp())
+                .compact();
+
         return Token.valueOf(jwtString);
     }
 }

@@ -11,13 +11,12 @@ public interface ITokenAuthentication {
      * @param token
      * @return claims extracted from token.
      */
-    Map<String, Object> verify(Token token) throws AuthenticationFailedException;
+    Jwt verify(Token token) throws AuthenticationFailedException;
 
     /**
      * creates a signed and encoded token with claims.
-     * @param subject subject of token
-     * @param claims claims to set.
+     * @param jwt json web token data
      * @return
      */
-    Token create(String subject, Map<String, Object> claims);
+    Token create(Jwt jwt);
 }

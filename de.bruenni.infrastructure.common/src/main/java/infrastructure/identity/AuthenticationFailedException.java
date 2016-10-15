@@ -12,7 +12,7 @@ public class AuthenticationFailedException extends Exception {
      * @param message
      * @param sigException
      */
-    public AuthenticationFailedException(String message, SignatureException sigException) {
+    public AuthenticationFailedException(String message, Exception sigException) {
         super(message, sigException);
     }
 }

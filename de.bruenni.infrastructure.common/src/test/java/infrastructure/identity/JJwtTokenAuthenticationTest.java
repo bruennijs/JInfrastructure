@@ -8,6 +8,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.security.PublicKey;
+import java.sql.Date;
+import java.time.Clock;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,15 +25,46 @@ public class JJwtTokenAuthenticationTest {
         ITokenAuthentication sut = JJwtTokenAuthenticationFactory.createAsymmetric(SignatureAlgorithm.RS512, 4096);
 
         HashMap claimsMap = new HashMap();
-        claimsMap.put("username", "bruenni");
+
         String groupsValue = "oldenburgerradsportfreunde, test";
         String groupsKey = "groups";
         claimsMap.put(groupsKey, groupsValue);
-        Token token = sut.create("hello world", claimsMap);
+        String subject = "bruenni";
 
-        Map<String, Object> claimsParsed = sut.verify(token);
-        Assert.assertEquals(claimsMap, claimsParsed);
+        Instant iat = Instant.now(Clock.systemUTC());
+        Instant exp = iat.plusSeconds(100);
 
-        Assert.assertEquals(groupsValue, claimsParsed.get(groupsKey));
+
+        Jwt jwt = new Jwt(subject, Date.from(iat), Date.from(exp), claimsMap);
+
+        Token token = sut.create(jwt);
+
+        Jwt jwtParsed = sut.verify(token);
+        Assert.assertEquals(jwt, jwtParsed);
+        Assert.assertEquals(groupsValue, jwtParsed.getClaims().get(groupsKey));
+        Assert.assertEquals(subject, jwtParsed.getSubject());
+    }
+
+    @Test
+    public void When_create_with_expiration_before_now_expect_AuthenticationFailedException() {
+        ITokenAuthentication sut = JJwtTokenAuthenticationFactory.createAsymmetric(SignatureAlgorithm.RS512, 4096);
+
+        HashMap claimsMap = new HashMap();
+
+        Instant iat = Instant.now(Clock.systemUTC());
+        Instant exp = iat.minusSeconds(100);
+
+
+        Jwt jwt = new Jwt("", Date.from(iat), Date.from(exp), claimsMap);
+
+        Token token = sut.create(jwt);
+
+        try {
+            sut.verify(token);
+            Assert.fail("Must throw exception");
+        }
+        catch (AuthenticationFailedException exc)
+        {
+        }
     }
 }
