@@ -40,7 +40,6 @@ public class JJwtTokenAuthenticationTest {
         Token token = sut.create(jwt);
 
         Jwt jwtParsed = sut.verify(token);
-        Assert.assertEquals(jwt, jwtParsed);
         Assert.assertEquals(groupsValue, jwtParsed.getClaims().get(groupsKey));
         Assert.assertEquals(subject, jwtParsed.getSubject());
     }
