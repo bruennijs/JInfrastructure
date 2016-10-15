@@ -20,4 +20,12 @@ public class JJwtTokenAuthenticationFactory {
         return new AsymmetricJJwtTokenAuthentication(algorithm, keyPair);
     }
 
+    /***
+     * Without signing.
+     * @return
+     */
+    public static ITokenAuthentication createWithoutSign()
+    {
+        return new JJwtTokenAuthentication();
+    }
 }
