@@ -1,4 +1,4 @@
-package infrastructure.extensions;
+package infrastructure.time;
 
 import java.time.Instant;
 import java.time.ZoneId;

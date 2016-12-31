@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by bruenni on 28.08.16.
@@ -23,8 +24,14 @@ public class JsonDtoParser implements IDtoParser {
      * @throws JsonProcessingException
      */
     @Override
-    public <T> String serialize(T object) throws JsonProcessingException {
-        return this.jsonMapper.writeValueAsString(object);
+    public <T> String serialize(T object) throws SerializingException {
+        try {
+            return this.jsonMapper.writeValueAsString(object);
+        }
+        catch (Exception exc)
+        {
+            throw new SerializingException("Serialization of object [type=" + object.getClass() + "] failede", exc);
+        }
     }
 
     /**
@@ -36,13 +43,26 @@ public class JsonDtoParser implements IDtoParser {
      * @throws IOException
      */
     @Override
-    public <T> T parse(String dto, Class<T> type) throws IOException {
-        return (T)this.jsonMapper.readValue(dto, type);
+    public <T> T parse(String dto, Class<T> type) throws ParserException {
+        try {
+            return (T)this.jsonMapper.readValue(dto, type);
+        } catch (IOException e) {
+            throw new ParserException("Parsing of object [type=" + type + "] failed", e);
+        }
     }
 
     @Override
-    public <T> T parse(byte[] dto, Class<T> type) throws IOException {
-        return (T)this.jsonMapper.readValue(dto, type);
+    public <T> T parse(byte[] dto, Class<T> type) throws ParserException {
+        try {
+            return (T)this.jsonMapper.readValue(dto, type);
+        } catch (IOException e) {
+            throw new ParserException("Parsing of object [type=" + type + "] failed", e);
+        }
+    }
+
+    @Override
+    public <T> T parse(InputStream input, Class<T> type) throws ParserException {
+        throw new ParserException("Not supported");
     }
 
     protected ObjectMapper getJsonMapper() {

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no" ?>
+<gpx version="1.1" creator="FancyRoute"
+  xmlns="http://www.topografix.com/GPX/1/1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+  xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd "
+  xmlns:gpxfr="urn:FancyRoute"
+>
+<metadata>
+  <name>Berg.Land_Tour1</name>
+</metadata>
+<wpt lat="51.04086400" lon="7.21012000">
+  <ele>250.00000000</ele>
+  <name>002</name>
+  <cmt>24-JUL-10 10:01:32</cmt>
+  <sym>Flag, Blue</sym>
+  <extensions>
+    <gpxx:WaypointExtension>
+      <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+    </gpxx:WaypointExtension>
+  </extensions>
+</wpt>
+<trk>
+  <name>one_trk_two_trkpt</name>
+  <extensions>
+    <line xmlns="http://www.topografix.com/GPX/gpx_style/0/2">
+      <color>00ff00</color>
+    </line>
+    <gpxx:TrackExtension>
+      <gpxx:DisplayColor>Green</gpxx:DisplayColor>
+    </gpxx:TrackExtension>
+  </extensions>
+  <trkseg>
+    <trkpt lat="51.11720200" lon="7.39863500">
+      <ele>279.00000000</ele>
+    </trkpt>
+    <trkpt lat="51.11738300" lon="7.39875200">
+      <ele>278.43896500</ele>
+      <time>2010-07-24T07:17:53Z</time>
+    </trkpt>
+  </trkseg>
+</trk>
+</gpx>

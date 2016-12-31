@@ -1,11 +1,13 @@
 package infrastructure.common.extensions;
 
+import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
 /**
@@ -79,6 +81,24 @@ public class ZonedDateTimeExtensionsTest {
         Assert.assertEquals(instantNum, instantString);
         Assert.assertEquals(instantNum, instantParsed);
 
+    }
+
+    @Test
+    public void when_parse_iso_time_zone_ecpect_instant_is_utc() throws Exception {
+        ZonedDateTime ztd = ZonedDateTime.parse("2016-10-08T15:39:12+05:00");
+        Instant instant = ztd.toInstant();
+        Instant instantUtc = Instant.parse("2016-10-08T10:39:12Z");
+
+        Assert.assertThat(instant, new IsEqual(instantUtc));
+    }
+
+    @Test
+    public void when_create_instant_at_zone_expect_ZonedDateTime_as_expected() {
+        ZonedDateTime ztd = ZonedDateTime.parse("2016-10-08T15:39:12+05:00");
+
+        Instant instantUtc = Instant.parse("2016-10-08T10:39:12Z");
+
+        Assert.assertThat(instantUtc.atZone(ZoneOffset.of("+05:00")), new IsEqual(ztd));
     }
 
     @Test

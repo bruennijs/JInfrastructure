@@ -1,9 +1,7 @@
 package infrastructure.identity.implementation;
 
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import infrastructure.identity.Token;
+import io.jsonwebtoken.*;
 
 import java.security.KeyPair;
 import java.security.PublicKey;
@@ -35,6 +33,13 @@ public class AsymmetricJJwtTokenAuthentication extends AbstractJJwtTokenAuthenti
      */
     public AsymmetricJJwtTokenAuthentication(PublicKey publicKey) {
         this.publicKey = publicKey;
+    }
+
+    @Override
+    protected Claims getBody(Token token) {
+        Jws<Claims> claims = this.getParser().parseClaimsJws(token.getValue());
+
+        return claims.getBody();
     }
 
     @Override

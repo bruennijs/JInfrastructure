@@ -1,9 +1,7 @@
 package infrastructure.identity.implementation;
 
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import infrastructure.identity.Token;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.crypto.RsaProvider;
 
 import java.security.KeyPair;
@@ -26,11 +24,17 @@ public class JJwtTokenAuthentication extends AbstractJJwtTokenAuthentication {
     }
 
     @Override
+    protected Claims getBody(Token token) {
+        Jwt<Header, Claims> headerClaimsJwt = this.getParser().parseClaimsJwt(token.getValue());
+        return headerClaimsJwt.getBody();
+    }
+
+    @Override
     protected JwtParser getParser() {
-        return Jwts.parser().setSigningKey(this.keyPair.getPublic());
+        return Jwts.parser();
     }
     @Override
     protected JwtBuilder getBuilder() {
-        return Jwts.builder().signWith(SignatureAlgorithm.RS512, this.keyPair.getPrivate());
+        return Jwts.builder();
     }
 }
