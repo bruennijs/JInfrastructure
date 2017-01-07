@@ -27,8 +27,8 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>lt.overdrive</groupId>
-      <artifactId>trackparser</artifactId>
+      <groupId>de.bruenni</groupId>
+      <artifactId>track-parser</artifactId>
       <version>[1.1.0,2.0.0)</version>
       <scope>compile</scope>
     </dependency>
