@@ -1,34 +1,34 @@
-package infrastructure.tracking;
+package de.bruenni.infrastructure.tracking;
 
-import infrastructure.builder.GpxTrackFileParserBuilder;
+import de.bruenni.infrastructure.tracking.builder.LtOverdriveGpxTrackFileParserBuilder;
+import de.bruenni.infrastructure.tracking.file.LtOverdriveGpxTrackFileParser;
 import infrastructure.resources.Resources;
-import infrastructure.tracking.file.gpx.GpxTrackFileParser;
+import infrastructure.tracking.Track;
 import infrastructure.util.IterableUtils;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.junit.runners.Parameterized;
 
 import java.io.InputStream;
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * Created by bruenni on 29.12.16.
  */
 @RunWith(Parameterized.class)
-public class GpxTrackFileParserTrkPtCountUnitTest {
+public class LtOverdriveGpxTrackFileParserTrkPtCountUnitTest {
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {"gpx/Berg-Land_Tour1.gpx", "Berg-Land_Tour1", 2540},
-                {"gpx/one_trk_two_trkpt.gpx", "one_trk_two_trkpt", 2},
+                {"gpx/2tracks.gpx", "Vaidas Pilkauskas", 2, 7},
+                {"gpx/Berg-Land_Tour1.gpx", "Berg-Land_Tour1", 1, 2510},
+                {"gpx/one_trk_two_trkpt.gpx", "one_trk_two_trkpt",1,  2},
         });
     }
 
@@ -39,21 +39,24 @@ public class GpxTrackFileParserTrkPtCountUnitTest {
     public String expectedtrkName;
 
     @Parameterized.Parameter(value = 2)
-    public int expectedtrkptcount;
+    public long expectedTrkCount;
+
+    @Parameterized.Parameter(value = 3)
+    public long expectedtrkptcount;
 
 
     @Test
     public void when_parse_valid_gpx_expect_name_and_trkpt_count_correct() throws Exception {
         try (InputStream gpxInputStream = loadGpxFile(gpxResourcePath)) {
 
-            GpxTrackFileParser sut = new GpxTrackFileParserBuilder().build();
-            Iterable<Track> tracks = sut.parse(gpxInputStream);
+            LtOverdriveGpxTrackFileParser sut = new LtOverdriveGpxTrackFileParserBuilder().build();
+            Iterable<Track> tracksIterable = sut.parse(gpxInputStream);
 
-            Stream<Track> trackStream = IterableUtils.stream(tracks);
+            List<Track> tracks = IterableUtils.toList(tracksIterable);
 
-            Assert.assertThat(trackStream.count(), new IsEqual(1));
+            Assert.assertThat(tracks.size(), new IsEqual((int) expectedTrkCount));
 
-            Optional<Track> track = trackStream.findFirst();
+            Optional<Track> track = tracks.stream().findFirst();
 
             Assert.assertThat(track.get().getName(), new IsEqual(expectedtrkName));
             Assert.assertThat(IterableUtils.stream(track.get().getPoints()).count(), new IsEqual(expectedtrkptcount));

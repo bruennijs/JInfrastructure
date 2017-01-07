@@ -1,8 +1,11 @@
-package infrastructure.tracking;
+package de.bruenni.infrastructure.tracking;
 
-import infrastructure.builder.GpxTrackFileParserBuilder;
+import com.google.common.collect.Lists;
+import de.bruenni.infrastructure.tracking.builder.LtOverdriveGpxTrackFileParserBuilder;
+import de.bruenni.infrastructure.tracking.file.LtOverdriveGpxTrackFileParser;
 import infrastructure.resources.Resources;
-import infrastructure.tracking.file.gpx.GpxTrackFileParser;
+import infrastructure.tracking.Track;
+import infrastructure.tracking.TrackPoint;
 import infrastructure.util.IterableUtils;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
@@ -12,13 +15,16 @@ import org.junit.runners.JUnit4;
 
 import java.io.InputStream;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * Created by bruenni on 29.12.16.
  */
 @RunWith(JUnit4.class)
-public class GpxTrackFileParserTrkptUnitTest {
+public class LtOverdriveGpxTrackFileParserTrkptUnitTest {
 
     @Test
     public void when_parse_gpx_expect_trkpt_contains_expected_values() throws Exception {
@@ -27,20 +33,21 @@ public class GpxTrackFileParserTrkptUnitTest {
 
         try (InputStream gpxInputStream = loadGpxFile()) {
 
-            GpxTrackFileParser sut = new GpxTrackFileParserBuilder().build();
+            LtOverdriveGpxTrackFileParser sut = new LtOverdriveGpxTrackFileParserBuilder().build();
             Iterable<Track> tracks = sut.parse(gpxInputStream);
 
             Track track = IterableUtils.stream(tracks).findFirst().get();
-            Stream<TrackPoint> pointsStream = IterableUtils.stream(track.getPoints()).filter(p -> p.getTime().equals(expectedTimestamp));
 
-            Assert.assertThat(pointsStream.count(), new IsEqual(1));
+            List<TrackPoint> matchingList = IterableUtils.stream(track.getPoints()).filter(p -> p.getTime().isPresent()).filter(tp -> tp.getTime().get().equals(expectedTimestamp)).collect(Collectors.toList());
 
-            TrackPoint trackPoint = pointsStream.findFirst().get();
+            Assert.assertThat(matchingList.size(), new IsEqual(1));
+
+            TrackPoint trackPoint = matchingList.get(0);
 
             Assert.assertThat(trackPoint.getLatitude(), new IsEqual(51.11779700d));
             Assert.assertThat(trackPoint.getLongitude(), new IsEqual<>(7.39852000d));
             Assert.assertThat(trackPoint.getAltitude(), new IsEqual<>(276.51635700));
-            Assert.assertThat(trackPoint.getTime(), new IsEqual<>(expectedTimestamp));
+            Assert.assertThat(trackPoint.getTime().get(), new IsEqual<>(expectedTimestamp));
         }
     }
 

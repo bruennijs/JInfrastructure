@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common.iml" filepath="$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common_main.iml" filepath="$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common_main.iml" group="de.bruenni.infrastructure.common" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common_test.iml" filepath="$PROJECT_DIR$/.idea/modules/de.bruenni.infrastructure.common_test.iml" group="de.bruenni.infrastructure.common" />
+      <module fileurl="file://$PROJECT_DIR$/infrastructure.tracking/infrastructure.tracking.iml" filepath="$PROJECT_DIR$/infrastructure.tracking/infrastructure.tracking.iml" />
     </modules>
   </component>
 </project>
