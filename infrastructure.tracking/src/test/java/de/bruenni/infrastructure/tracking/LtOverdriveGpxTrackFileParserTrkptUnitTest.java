@@ -44,8 +44,8 @@ public class LtOverdriveGpxTrackFileParserTrkptUnitTest {
 
             TrackPoint trackPoint = matchingList.get(0);
 
-            Assert.assertThat(trackPoint.getLatitude(), new IsEqual(51.11779700d));
-            Assert.assertThat(trackPoint.getLongitude(), new IsEqual<>(7.39852000d));
+            Assert.assertThat(trackPoint.getPoint().getLatitude(), new IsEqual(51.11779700d));
+            Assert.assertThat(trackPoint.getPoint().getLongitude(), new IsEqual<>(7.39852000d));
             Assert.assertThat(trackPoint.getAltitude(), new IsEqual<>(276.51635700));
             Assert.assertThat(trackPoint.getTime().get(), new IsEqual<>(expectedTimestamp));
         }

@@ -1,5 +1,6 @@
 package de.bruenni.infrastructure.tracking.file;
 
+import infrastructure.tracking.GeoPoint;
 import infrastructure.tracking.Track;
 import infrastructure.tracking.file.ITrackFileParser;
 import infrastructure.tracking.file.TrackFileParserException;
@@ -46,8 +47,7 @@ public class LtOverdriveGpxTrackFileParser implements ITrackFileParser {
         DateTime timestamp = trackPoint.getTime();
 
         return new infrastructure.tracking.TrackPoint(
-                trackPoint.getLatitude(),
-                trackPoint.getLongitude(),
+            new GeoPoint(trackPoint.getLatitude(),trackPoint.getLongitude()),
                 trackPoint.getAltitude(),
                 Optional.ofNullable(timestamp != null ? Instant.ofEpochMilli(timestamp.toInstant().getMillis()) : null));
     }
