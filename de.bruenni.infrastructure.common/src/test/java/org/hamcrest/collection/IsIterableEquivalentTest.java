@@ -94,11 +94,11 @@ public class IsIterableEquivalentTest {
 		Assert.assertThat(actual,
 			Every.everyItem(StringContains.containsString("a")));
 
+		Assert.assertThat(actual, Every.everyItem(AllOf.allOf(StringStartsWith.startsWith("a"), StringContains.containsString("000"))));
+
 		Assert.assertThat(actual,
 			IsNot.not(Every.everyItem(StringContains.containsString("b"))));
 
-		Assert.assertThat(actual,
-			IsNot.not(Every.everyItem(AllOf.allOf(StringStartsWith.startsWith("a"), StringContains.containsString("000")))));
 	}
 }
 
