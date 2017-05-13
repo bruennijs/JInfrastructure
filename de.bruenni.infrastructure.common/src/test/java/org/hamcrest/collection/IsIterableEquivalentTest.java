@@ -1,13 +1,10 @@
-package infrastructure.org.hamcrest.collection;
+package org.hamcrest.collection;
 
-import org.hamcrest.core.Is;
-import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,8 +22,9 @@ public class IsIterableEquivalentTest {
 
 	@Test
 	public void when_size_equal_expect_matches_succeeds() throws Exception {
-		List<String> actual = Arrays.asList("a", "b");
+		List<String> actual = Arrays.asList("b", "a");
 
-		Assert.assertEquals(true, IsIterableEquivalent.to(Arrays.asList("a", "b")).matches(actual));
+		Assert.assertThat(actual, IsIterableEquivalent.to("a", "b"));
+		Assert.assertThat(actual, IsIterableEquivalent.to(Arrays.asList("a", "b")));
 	}
 }

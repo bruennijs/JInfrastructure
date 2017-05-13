@@ -1,11 +1,9 @@
-package infrastructure.org.hamcrest.collection;
+package org.hamcrest.collection;
 
 import infrastructure.util.IterableUtils;
 import org.hamcrest.*;
-import org.hamcrest.core.AnyOf;
 import org.hamcrest.core.IsEqual;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +19,14 @@ public class IsIterableEquivalent<T> extends TypeSafeDiagnosingMatcher<Iterable<
 	 * Constructor
 	 * @param items
 	 */
+	public IsIterableEquivalent(Iterable<T> items) {
+		elementMatchers = IterableUtils.stream(items).map(item -> IsEqual.equalTo(item)).collect(Collectors.toList());
+	}
+
+	/**
+	 * Constructor
+	 * @param items
+	 */
 	public IsIterableEquivalent(T...items) {
 		elementMatchers = Arrays.stream(items).map(item -> IsEqual.equalTo(item)).collect(Collectors.toList());
 	}
@@ -28,7 +34,7 @@ public class IsIterableEquivalent<T> extends TypeSafeDiagnosingMatcher<Iterable<
 	@Override
 	protected boolean matchesSafely(Iterable<T> items, Description mismatchDescription) {
 
-		List<? super T> examingList = IterableUtils.toList(items);
+		List<T> examingList = IterableUtils.toList(items);
 
 		if (examingList.size() != elementMatchers.size())
 		{
@@ -57,6 +63,18 @@ public class IsIterableEquivalent<T> extends TypeSafeDiagnosingMatcher<Iterable<
 	 */
 	@Factory
 	public static <T> Matcher<Iterable<T>> to(T...items)
+	{
+		return new IsIterableEquivalent<T>(items);
+	}
+
+	/**
+	 * Factory method
+	 * @param items
+	 * @param <T>
+	 * @return
+	 */
+	@Factory
+	public static <T> Matcher<Iterable<T>> to(Iterable<T> items)
 	{
 		return new IsIterableEquivalent<T>(items);
 	}
