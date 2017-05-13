@@ -63,5 +63,42 @@ public class IsIterableEquivalentTest {
 
 		Assert.assertThat(actual, IsNot.not(Matchers.containsInAnyOrder(Arrays.asList(StringContains.containsString("a")))));
 	}
+
+	@Test
+
+	public void IsIterableContaining_expect_understand_them_correclty_with_and_semantic() throws Exception {
+		List<String> actual = Arrays.asList("a000b", "a000c");
+
+		Assert.assertThat(actual,
+			IsCollectionContaining.hasItem(
+				AllOf.allOf(StringContains.containsString("a"), StringContains.containsString("b"))));
+
+		Assert.assertThat(actual,
+			IsCollectionContaining.hasItem(
+				AllOf.allOf(StringContains.containsString("a"), StringContains.containsString("c"))));
+
+		Assert.assertThat(actual,
+			IsCollectionContaining.hasItem(
+				AllOf.allOf(StringContains.containsString("a"))));
+
+		Assert.assertThat(actual,
+			IsNot.not(IsCollectionContaining.hasItem(
+				AllOf.allOf(StringContains.containsString("a"), StringContains.containsString("d")))));
+	}
+
+	@Test
+
+	public void checks_whether_each_or_every_item_matches_a_matcher() throws Exception {
+		List<String> actual = Arrays.asList("a000b", "a000c");
+
+		Assert.assertThat(actual,
+			Every.everyItem(StringContains.containsString("a")));
+
+		Assert.assertThat(actual,
+			IsNot.not(Every.everyItem(StringContains.containsString("b"))));
+
+		Assert.assertThat(actual,
+			IsNot.not(Every.everyItem(AllOf.allOf(StringStartsWith.startsWith("a"), StringContains.containsString("000")))));
+	}
 }
 

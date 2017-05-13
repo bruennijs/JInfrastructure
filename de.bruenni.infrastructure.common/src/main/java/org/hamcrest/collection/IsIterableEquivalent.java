@@ -34,20 +34,7 @@ public class IsIterableEquivalent<T> extends TypeSafeDiagnosingMatcher<Iterable<
 	@Override
 	protected boolean matchesSafely(Iterable<T> items, Description mismatchDescription) {
 
-		List<T> examingList = IterableUtils.toList(items);
-
-		if (examingList.size() != elementMatchers.size())
-		{
-			mismatchDescription.appendText(String.format("Size of examing iterable and comparing iterable differs [examing=%1%, comparing=%2%]", examingList.size(), elementMatchers.size()));
-			return false;
-		}
-
-		return true;
-
-/*		for ( item : items)
-		{
-			AnyOf.anyOf(elementMatchers)
-		}*/
+		return false;
 	}
 
 	@Override
