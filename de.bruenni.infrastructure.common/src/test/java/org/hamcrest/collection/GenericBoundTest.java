@@ -41,21 +41,24 @@ public class GenericBoundTest {
 	@Test
 	public void doVariance() throws Exception {
 		List<Tuple2<Integer, String>> aggregated = new ArrayList<>();
-		aggregated.add(new Tuple2<>(1, "4"));
-		aggregated.add(new Tuple2<>(1, "7"));
 
+		Tuple2<Integer, String> t1 = new Tuple2<>(1, "7");
+		Tuple2<Integer, String> t2 = new Tuple2<>(5, "47");
 
-		Tuple3<Integer, String, Integer> t1 = new Tuple3<>(1, "7", 8);
-
-		doAggregate(Arrays.asList(t1), aggregated);
+		doAggregate(Arrays.asList(t1, t2), aggregated);
 
 		List<Tuple2<Integer, String>> tupleSumList = aggregated.stream()
 			.filter(t -> TupleSum.isInstanceOf(t))
 			.collect(Collectors.toList());
 
-		Assert.assertThat(1, IsEqual.equalTo(tupleSumList.size()));
+		Assert.assertThat(2, IsEqual.equalTo(tupleSumList.size()));
 
-
+		// assert sum is calculated correctly
+		Assert.assertThat(tupleSumList
+			.stream()
+			.map(ts -> (TupleSum)ts)
+			.map(ts -> ts.sum())
+			.collect(Collectors.toList()), Matchers.<Integer>contains(8, 52));
 	}
 
 	@Test
