@@ -4,8 +4,11 @@ import infrastructure.util.IterableUtils;
 import org.hamcrest.*;
 import org.hamcrest.core.IsEqual;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -13,7 +16,8 @@ import java.util.stream.Collectors;
  */
 public class IsIterableEquivalent<T> extends TypeSafeDiagnosingMatcher<Iterable<T>> {
 
-	private final List<Matcher<T>> elementMatchers;
+	private final List<Matcher<? super T>> elementMatchers;
+	private final Matcher<Iterable<? extends T>> iterableMatcher;
 
 	/**
 	 * Constructor
@@ -21,6 +25,7 @@ public class IsIterableEquivalent<T> extends TypeSafeDiagnosingMatcher<Iterable<
 	 */
 	public IsIterableEquivalent(Iterable<T> items) {
 		elementMatchers = IterableUtils.stream(items).map(item -> IsEqual.equalTo(item)).collect(Collectors.toList());
+		iterableMatcher = Matchers.containsInAnyOrder(elementMatchers);
 	}
 
 	/**
@@ -29,17 +34,26 @@ public class IsIterableEquivalent<T> extends TypeSafeDiagnosingMatcher<Iterable<
 	 */
 	public IsIterableEquivalent(T...items) {
 		elementMatchers = Arrays.stream(items).map(item -> IsEqual.equalTo(item)).collect(Collectors.toList());
+		//elementMatchers.stream().collect(Collectors.toList());
+		iterableMatcher = Matchers.containsInAnyOrder(elementMatchers);
 	}
 
 	@Override
 	protected boolean matchesSafely(Iterable<T> items, Description mismatchDescription) {
 
-		return false;
+		boolean matches = iterableMatcher.matches(items);
+		if (!matches)
+		{
+			mismatchDescription.appendText("Iterabes are not equivalent -> ");
+			iterableMatcher.describeMismatch(items, mismatchDescription);
+		}
+
+		return matches;
 	}
 
 	@Override
 	public void describeTo(Description description) {
-		description.appendText("Iterables are not equivalent.");
+		description.appendText("two Iterables are equivalent.");
 	}
 
 	/**
@@ -49,20 +63,20 @@ public class IsIterableEquivalent<T> extends TypeSafeDiagnosingMatcher<Iterable<
 	 * @return
 	 */
 	@Factory
-	public static <T> Matcher<Iterable<T>> to(T...items)
+	public static <V> Matcher<Iterable<V>> to(V...items)
 	{
-		return new IsIterableEquivalent<T>(items);
+		return new IsIterableEquivalent<V>(items);
 	}
 
 	/**
 	 * Factory method
 	 * @param items
-	 * @param <T>
+	 * @param <V>
 	 * @return
 	 */
 	@Factory
-	public static <T> Matcher<Iterable<T>> to(Iterable<T> items)
+	public static <V> Matcher<Iterable<V>> to(Iterable<V> items)
 	{
-		return new IsIterableEquivalent<T>(items);
+		return new IsIterableEquivalent<V>(items);
 	}
 }

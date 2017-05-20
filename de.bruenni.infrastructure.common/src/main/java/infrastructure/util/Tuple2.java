@@ -39,7 +39,7 @@ public class Tuple2<T1, T2> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Tuple2<?, ?> tuple2 = (Tuple2<?, ?>) o;
