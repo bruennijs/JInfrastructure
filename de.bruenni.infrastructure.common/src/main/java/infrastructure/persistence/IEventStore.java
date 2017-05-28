@@ -1,16 +1,13 @@
 package infrastructure.persistence;
 
-import infrastructure.common.event.IEvent;
+import infrastructure.common.event.Event;
 import infrastructure.common.event.ITenantEvent;
 import org.springframework.data.repository.CrudRepository;
-
-import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Created by bruenni on 18.06.16.
  */
-public interface IEventStore<TEvent extends IEvent,
+public interface IEventStore<TEvent extends Event,
         TTenantEvent extends ITenantEvent> extends CrudRepository<TEvent, EntityId> {
     /**
      * Finds aggregate by the corresponding aggregate id

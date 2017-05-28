@@ -9,5 +9,5 @@ public interface IDomainEventPublisher {
      * Publishes event to all subscribers.
      * @param event
      */
-    void publish(IEvent event);
+    void publish(Event event);
 }

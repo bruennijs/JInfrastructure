@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 /**
  * Created by bruenni on 08.06.16.
  */
-public interface IEventHandler<T extends IEvent> {
+public interface IEventHandler<T extends Event> {
     /**
      * Handles domain events.
      * @param event

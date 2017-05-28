@@ -1,17 +1,16 @@
 package test.matcher;
 
-import java.util.function.Function;
+import java.util.function.Predicate;
 
-import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
 public class LambdaMatcher<T> extends TypeSafeMatcher<T>
 {
-    private final Function<? super T, Boolean> matcher;
+    private final Predicate<? super T> matcher;
     private final String description;
 
-    public LambdaMatcher(Function<? super T, Boolean> matcher,
+    public LambdaMatcher(Predicate<? super T> matcher,
                          String description)
     {
         this.matcher = matcher;
@@ -26,6 +25,16 @@ public class LambdaMatcher<T> extends TypeSafeMatcher<T>
 
     @Override
     protected boolean matchesSafely(T item) {
-        return matcher.apply(item);
+        return matcher.test(item);
+    }
+
+    public static <T> LambdaMatcher<? super T> isMatching(Predicate<? super T> predicate)
+    {
+        return LambdaMatcher.isMatching(predicate, "Lambda matcher's predicate is successful");
+    }
+
+    public static <T> LambdaMatcher<? super T> isMatching(Predicate<? super T> predicate, String description)
+    {
+        return new LambdaMatcher<>(predicate, description);
     }
 }

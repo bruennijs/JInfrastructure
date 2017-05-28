@@ -8,5 +8,5 @@ public interface IDomainEventBus extends IDomainEventPublisher {
      * Subcribes to domain event bus.
      * @return
      */
-    rx.Observable<IEvent> subscribe();
+    rx.Observable<Event> subscribe();
 }

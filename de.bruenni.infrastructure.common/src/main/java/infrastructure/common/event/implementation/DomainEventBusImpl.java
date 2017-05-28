@@ -1,7 +1,7 @@
 package infrastructure.common.event.implementation;
 
 import infrastructure.common.event.IDomainEventBus;
-import infrastructure.common.event.IEvent;
+import infrastructure.common.event.Event;
 import rx.Observable;
 import rx.Observer;
 import rx.subjects.ReplaySubject;
@@ -14,14 +14,14 @@ import java.util.List;
  * Created by bruenni on 30.04.16.
  */
 public class DomainEventBusImpl implements IDomainEventBus {
-    private List<Observer<IEvent>> observers = new LinkedList<Observer<IEvent>>();
+    private List<Observer<Event>> observers = new LinkedList<Observer<Event>>();
 
     /**
      * Subcribes and adds to internal list.
      * @return
      */
-    public Observable<IEvent> subscribe() {
-        Subject<IEvent, IEvent> subject = ReplaySubject.create();
+    public Observable<Event> subscribe() {
+        Subject<Event, Event> subject = ReplaySubject.create();
         this.observers.add(subject);
         return subject;
     }
@@ -30,8 +30,8 @@ public class DomainEventBusImpl implements IDomainEventBus {
      * Publishes to all observers.
      * @param tEvent
      */
-    public void publish(IEvent tEvent) {
-        for (Observer<IEvent> o :
+    public void publish(Event tEvent) {
+        for (Observer<Event> o :
                 this.observers) {
             o.onNext(tEvent);
         }

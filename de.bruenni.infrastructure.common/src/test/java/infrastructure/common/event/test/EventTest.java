@@ -22,7 +22,7 @@ public class EventTest {
         TenantEvent tenantEvent = new TenantEvent(id1, aggregateID, id2, new Date());
         Assert.assertEquals(id1, tenantEvent.getId());
         Assert.assertEquals(id2, tenantEvent.getTenantId());
-        Assert.assertEquals(aggregateID, tenantEvent.getAggregateId());
+        Assert.assertEquals(aggregateID, tenantEvent.getAggregate());
     }
 
     public void when_event_expected_correct_properties()
@@ -32,6 +32,6 @@ public class EventTest {
         UUID aggregateID = UUID.randomUUID();
         MyEvent tenantEvent = new MyEvent(id1, aggregateID, new Date());
         Assert.assertEquals(id1, tenantEvent.getId());
-        Assert.assertEquals(aggregateID, tenantEvent.getAggregateId());
+        Assert.assertEquals(aggregateID, tenantEvent.getAggregate());
     }
 }
