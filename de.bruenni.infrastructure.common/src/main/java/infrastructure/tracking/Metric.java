@@ -13,4 +13,10 @@ public interface Metric extends Supplier<Double> {
 	 * @return
 	 */
 	String getName();
+
+	/**
+	 * Gets the factor of the multiplier with base of centimeter.
+	 * @return
+	 */
+    Double getFactor();
 }

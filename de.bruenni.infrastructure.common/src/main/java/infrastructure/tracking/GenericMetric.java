@@ -41,4 +41,9 @@ class GenericMetric implements Metric {
 	public Double get() {
 		return factor;
 	}
+
+	@Override
+	public Double getFactor() {
+		return factor;
+	}
 }

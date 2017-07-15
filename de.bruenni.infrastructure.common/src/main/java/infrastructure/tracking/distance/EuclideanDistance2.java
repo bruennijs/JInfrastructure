@@ -22,6 +22,6 @@ public class EuclideanDistance2 implements GeoDistance {
 			dist = dist * 1609.344;
 		}
 
-		return DistanceImpl.from(dist, metric);
+		return Distance.from(dist, metric);
 	}
 }

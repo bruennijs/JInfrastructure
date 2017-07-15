@@ -9,4 +9,9 @@ public class Metrics {
 	 * metric of Meter.
 	 */
 	public static final Metric METER = new GenericMetric("meter", Double.valueOf(100.0));
+
+	/**
+	 * metric of Meter.
+	 */
+	public static final Metric CENTIMETER = new GenericMetric("meter", Double.valueOf(1.0));
 }
