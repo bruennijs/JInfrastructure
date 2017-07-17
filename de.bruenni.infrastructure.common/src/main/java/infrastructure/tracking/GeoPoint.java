@@ -3,16 +3,16 @@ package infrastructure.tracking;
 /**
  * Created by bruenni on 16.01.17.
  */
-public class GeoPoint {
-	private final Double latitude;
-	private final Double longitude;
+public class GeoPoint<T> {
+	private final T latitude;
+	private final T longitude;
 
 	/**
 	 * Constructor
 	 * @param latitude
 	 * @param longitude
 	 */
-	public GeoPoint(Double latitude, Double longitude) {
+	public GeoPoint(T latitude, T longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
@@ -40,11 +40,11 @@ public class GeoPoint {
 		return result;
 	}
 
-	public Double getLatitude() {
+	public T getLatitude() {
 		return latitude;
 	}
 
-	public Double getLongitude() {
+	public T getLongitude() {
 		return longitude;
 	}
 }

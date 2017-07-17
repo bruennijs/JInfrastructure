@@ -8,8 +8,9 @@ import infrastructure.tracking.Metrics;
  * Created by bruenni on 16.01.17.
  */
 public class EuclideanDistance2 implements GeoDistance {
+
 	@Override
-	public Distance<Double> distance(GeoPoint p1, GeoPoint p2, Metric metric) {
+	public <GP extends GeoPoint<Double>> Distance<Double> distance(GP p1, GP p2, Metric metric) {
 		double theta = p1.getLongitude() - p2.getLongitude();
 		double dist = Math.sin(Math.toRadians(p1.getLatitude())) * Math.sin(Math.toRadians(p2.getLatitude())) + Math.cos(Math.toRadians(p1.getLatitude())) * Math.cos(Math.toRadians(p2.getLatitude())) * Math.cos(Math.toRadians(theta));
 		dist = Math.acos(dist);

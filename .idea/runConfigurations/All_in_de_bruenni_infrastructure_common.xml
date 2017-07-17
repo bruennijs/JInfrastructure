@@ -21,7 +21,7 @@
     <patterns />
     <method>
       <option name="Maven.BeforeRunTask" enabled="false" file="$PROJECT_DIR$/infrastructure.tracking/pom.xml" goal="compile" />
-      <option name="MakeProject" enabled="true" />
+      <option name="Make" enabled="true" />
     </method>
   </configuration>
 </component>

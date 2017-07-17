@@ -13,5 +13,5 @@ public interface GeoDistance {
 	 * @param p2 point 2
 	 * @return distance in
 	 */
-	<GP extends GeoPoint, R extends Double> Distance<R> distance(final GP p1, final GP p2, Metric metric);
+	<GP extends GeoPoint<Double>> Distance<Double> distance(final GP p1, final GP p2, Metric metric);
 }
